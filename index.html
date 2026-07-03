@@ -1,0 +1,681 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root{
+  --paper:#EBEEF3;
+  --surface:#FFFFFF;
+  --rail:#182233;
+  --rail-surface:#212C40;
+  --ink:#1B2430;
+  --muted:#6B7686;
+  --line:#DBE0E8;
+  --accent:#2B4C7E;
+  --accent-soft:#DCE6F5;
+  --good:#3E8E5A;
+  --danger:#C4573F;
+}
+*{box-sizing:border-box;}
+.thub-root{
+  font-family:'Inter',sans-serif;
+  color:var(--ink);
+  background:var(--paper);
+  width:100%;
+  min-height:640px;
+  display:flex;
+  border-radius:14px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  box-shadow:0 1px 3px rgba(20,30,50,.06);
+}
+.thub-h1,.thub-h2,.thub-h3{font-family:'Fraunces',serif;font-weight:600;letter-spacing:-.01em;margin:0;}
+
+/* ---------- Rail ---------- */
+.thub-rail{
+  width:250px;
+  min-width:250px;
+  background:var(--rail);
+  color:#E7EAF1;
+  display:flex;
+  flex-direction:column;
+  padding:20px 16px;
+}
+.thub-brand{display:flex;align-items:baseline;gap:8px;margin-bottom:18px;}
+.thub-brand .mark{
+  width:10px;height:10px;border-radius:2px;background:#E8604C;
+  transform:rotate(45deg);flex:none;
+}
+.thub-brand h1{font-size:17px;color:#fff;}
+
+.thub-presence{margin-bottom:22px;}
+.thub-presence-label{font:500 11px/1 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:#8791A3;margin-bottom:8px;}
+.thub-avatars{display:flex;flex-wrap:wrap;gap:6px;}
+.thub-avatar{
+  width:26px;height:26px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font:600 11px 'Inter',sans-serif;color:#fff;
+  border:2px solid var(--rail);
+  cursor:default;
+}
+
+.thub-tabs{display:flex;gap:4px;background:var(--rail-surface);padding:4px;border-radius:9px;margin-bottom:18px;}
+.thub-tab{
+  flex:1;text-align:center;padding:8px 0;border-radius:6px;
+  font:500 13px 'Inter',sans-serif;color:#A9B2C3;cursor:pointer;border:none;background:transparent;
+}
+.thub-tab.active{background:var(--accent);color:#fff;}
+
+.thub-rail-section-label{font:500 11px/1 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:#8791A3;margin:4px 2px 8px;}
+.thub-new-btn{
+  width:100%;padding:9px 10px;margin-bottom:10px;
+  background:var(--rail-surface);border:1px dashed #445071;color:#C8D0E0;
+  border-radius:8px;font:500 13px 'Inter',sans-serif;cursor:pointer;text-align:left;
+}
+.thub-new-btn:hover{background:#2A3650;border-color:#5A6890;}
+
+.thub-list{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:3px;}
+.thub-list-item{
+  padding:9px 10px;border-radius:8px;cursor:pointer;
+  border-left:3px solid transparent;
+}
+.thub-list-item:hover{background:var(--rail-surface);}
+.thub-list-item.active{background:var(--rail-surface);border-left-color:#E8604C;}
+.thub-list-item .t{font:500 13px 'Inter';color:#EDEFF4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.thub-list-item .d{font:400 11px 'JetBrains Mono',monospace;color:#8791A3;margin-top:2px;}
+
+.thub-me{
+  margin-top:14px;padding-top:14px;border-top:1px solid #2A3650;
+  display:flex;align-items:center;gap:8px;cursor:pointer;
+}
+.thub-me .dot{width:20px;height:20px;border-radius:50%;flex:none;}
+.thub-me span{font:500 12px 'Inter';color:#C8D0E0;}
+
+/* ---------- Main ---------- */
+.thub-main{flex:1;overflow-y:auto;background:var(--paper);padding:28px 34px;min-width:0;}
+.thub-empty{
+  height:100%;min-height:400px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  color:var(--muted);text-align:center;gap:6px;
+}
+.thub-empty .thub-h2{color:#38445A;}
+
+/* meeting header */
+.thub-mtitle-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px;gap:16px;}
+.thub-mtitle{font-size:26px;}
+.thub-meta{font:500 12px 'JetBrains Mono',monospace;color:var(--muted);margin-top:6px;}
+.thub-attendees{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
+.thub-chip{
+  display:flex;align-items:center;gap:6px;background:var(--surface);
+  border:1px solid var(--line);border-radius:20px;padding:4px 10px 4px 4px;
+  font:500 12px 'Inter';
+}
+.thub-chip .dot{width:16px;height:16px;border-radius:50%;flex:none;}
+
+.thub-section-title{font:600 11px/1 'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:26px 0 12px;}
+
+/* cards */
+.thub-card{
+  background:var(--surface);border:1px solid var(--line);border-radius:10px;
+  padding:16px 18px;margin-bottom:12px;border-left:4px solid var(--line);
+  transition:border-left-color .3s;
+}
+.thub-card.flash{animation:thubflash 1.4s ease;}
+@keyframes thubflash{
+  0%{background:var(--flash-color,#fff);}
+  100%{background:var(--surface);}
+}
+.thub-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
+.thub-card-title{font:600 15px 'Inter';border:none;background:transparent;width:100%;outline:none;color:var(--ink);}
+.thub-card-title::placeholder{color:#A6AEBB;}
+.thub-owner-select{
+  font:500 12px 'Inter';color:var(--muted);border:1px solid var(--line);border-radius:6px;
+  padding:4px 6px;background:var(--surface);flex:none;
+}
+.thub-notes{
+  width:100%;border:none;background:transparent;resize:vertical;min-height:44px;
+  font:400 13px/1.5 'Inter';color:var(--ink);outline:none;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);
+}
+.thub-notes::placeholder{color:#A6AEBB;}
+.thub-editedby{
+  display:inline-flex;align-items:center;gap:5px;margin-top:8px;
+  font:500 11px 'JetBrains Mono',monospace;
+}
+.thub-editedby .dot{width:9px;height:9px;border-radius:50%;}
+
+.thub-actionitems{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:6px;}
+.thub-ai-row{display:flex;align-items:center;gap:8px;}
+.thub-ai-row input[type=checkbox]{width:15px;height:15px;accent-color:var(--good);flex:none;}
+.thub-ai-row input[type=text]{flex:1;border:none;background:transparent;font:400 13px 'Inter';outline:none;}
+.thub-ai-row input[type=text].done{text-decoration:line-through;color:var(--muted);}
+.thub-ai-row select{font:500 11px 'Inter';color:var(--muted);border:1px solid var(--line);border-radius:5px;padding:2px 4px;flex:none;}
+.thub-ai-add,.thub-add-agenda{
+  font:500 12px 'Inter';color:var(--accent);background:none;border:none;cursor:pointer;padding:4px 0;text-align:left;
+}
+.thub-remove{background:none;border:none;color:#B7BFCC;cursor:pointer;font-size:15px;line-height:1;padding:2px 4px;flex:none;}
+.thub-remove:hover{color:var(--danger);}
+
+/* todos */
+.thub-filters{display:flex;gap:6px;margin-bottom:16px;}
+.thub-filter{
+  padding:6px 13px;border-radius:20px;border:1px solid var(--line);background:var(--surface);
+  font:500 12px 'Inter';color:var(--muted);cursor:pointer;
+}
+.thub-filter.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+.thub-todo-form{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;}
+.thub-todo-form input[type=text]{flex:1;min-width:180px;padding:9px 12px;border:1px solid var(--line);border-radius:8px;font:400 13px 'Inter';}
+.thub-todo-form select,.thub-todo-form input[type=date]{padding:9px 10px;border:1px solid var(--line);border-radius:8px;font:400 13px 'Inter';background:var(--surface);}
+.thub-todo-form button{padding:9px 16px;border:none;border-radius:8px;background:var(--accent);color:#fff;font:600 13px 'Inter';cursor:pointer;}
+.thub-todo-row{
+  display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);
+  border-left:4px solid var(--line);border-radius:9px;padding:11px 13px;margin-bottom:8px;
+}
+.thub-todo-row input[type=checkbox]{width:17px;height:17px;accent-color:var(--good);flex:none;}
+.thub-todo-title{flex:1;font:500 14px 'Inter';}
+.thub-todo-title.done{text-decoration:line-through;color:var(--muted);}
+.thub-todo-sub{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex:none;}
+.thub-todo-assignee{display:flex;align-items:center;gap:5px;font:500 11px 'Inter';color:var(--muted);}
+.thub-todo-assignee .dot{width:8px;height:8px;border-radius:50%;}
+.thub-todo-due{font:400 10px 'JetBrains Mono',monospace;color:var(--muted);}
+
+/* modal */
+.thub-modal-bg{
+  position:absolute;inset:0;background:rgba(15,20,32,.55);
+  display:flex;align-items:center;justify-content:center;z-index:20;border-radius:14px;
+}
+.thub-modal{background:var(--surface);border-radius:14px;padding:30px;width:340px;box-shadow:0 20px 50px rgba(0,0,0,.3);}
+.thub-modal h2{font-size:20px;margin-bottom:4px;}
+.thub-modal p{font:400 13px 'Inter';color:var(--muted);margin:0 0 18px;}
+.thub-modal input[type=text]{
+  width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:8px;font:400 14px 'Inter';margin-bottom:16px;
+}
+.thub-swatches{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;}
+.thub-swatch{width:30px;height:30px;border-radius:50%;cursor:pointer;border:3px solid transparent;}
+.thub-swatch.selected{border-color:var(--ink);}
+.thub-modal button.thub-primary{
+  width:100%;padding:11px;border:none;border-radius:8px;background:var(--accent);color:#fff;font:600 14px 'Inter';cursor:pointer;
+}
+.thub-modal button.thub-primary:disabled{opacity:.4;cursor:not-allowed;}
+
+.thub-loading{display:flex;align-items:center;justify-content:center;height:100%;min-height:400px;color:var(--muted);font:500 13px 'Inter';}
+
+@media (max-width:680px){
+  .thub-root{flex-direction:column;height:auto;}
+  .thub-rail{width:100%;min-width:0;flex-direction:row;flex-wrap:wrap;align-items:center;}
+  .thub-list{max-height:180px;}
+  .thub-main{padding:20px;}
+}
+</style>
+
+<div id="thub-app"></div>
+
+<script>
+(function(){
+
+const COLORS = [
+  {name:'Coral',   hex:'#E8604C'},
+  {name:'Amber',   hex:'#D79A2C'},
+  {name:'Teal',    hex:'#2F9E8F'},
+  {name:'Violet',  hex:'#8B5FBF'},
+  {name:'Green',   hex:'#4F9D5D'},
+  {name:'Blue',    hex:'#3C7FC7'},
+  {name:'Pink',    hex:'#D65B93'},
+  {name:'Slate',   hex:'#6C7A89'},
+];
+
+const root = document.getElementById('thub-app');
+
+let state = {
+  loading: true,
+  profile: null,          // {name, color}
+  members: [],            // [{name,color}]
+  meetings: [],           // [{id,title,date,attendees:[name],agenda:[{id,topic,owner,notes,lastEditedBy,lastEditedAt,actionItems:[{id,text,assignee,done}]}]}]
+  todos: [],              // [{id,title,assignee,due,done,lastEditedBy,lastEditedAt}]
+  tab: 'meetings',
+  selectedMeetingId: null,
+  todoFilter: 'all',
+  flashIds: new Set(),
+  setupDraft: {name:'', color: COLORS[0].hex},
+};
+
+function uid(){ return Math.random().toString(36).slice(2,10); }
+function nowLabel(){
+  const d = new Date();
+  return d.toLocaleDateString(undefined,{month:'short',day:'numeric'}) + ' · ' + d.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'});
+}
+function initials(name){
+  if(!name) return '?';
+  const parts = name.trim().split(/\s+/);
+  return (parts[0][0] + (parts[1] ? parts[1][0] : '')).toUpperCase();
+}
+function colorFor(name){
+  const m = state.members.find(m => m.name === name);
+  return m ? m.color : '#B7BFCC';
+}
+function nextAutoColor(){
+  const used = new Set(state.members.map(m=>m.color));
+  const free = COLORS.find(c => !used.has(c.hex));
+  return (free || COLORS[state.members.length % COLORS.length]).hex;
+}
+
+// ---------- storage ----------
+async function getShared(key, fallback){
+  try{
+    const res = await window.storage.get(key, true);
+    return res ? JSON.parse(res.value) : fallback;
+  }catch(e){ return fallback; }
+}
+async function setShared(key, value){
+  try{ await window.storage.set(key, JSON.stringify(value), true); }catch(e){ console.error('storage set failed', e); }
+}
+async function getPersonal(key, fallback){
+  try{
+    const res = await window.storage.get(key, false);
+    return res ? JSON.parse(res.value) : fallback;
+  }catch(e){ return fallback; }
+}
+async function setPersonal(key, value){
+  try{ await window.storage.set(key, JSON.stringify(value), false); }catch(e){ console.error('storage set failed', e); }
+}
+
+async function loadShared(){
+  const [members, meetings, todos] = await Promise.all([
+    getShared('team:members', []),
+    getShared('team:meetings', []),
+    getShared('team:todos', []),
+  ]);
+  state.members = members;
+  state.meetings = meetings;
+  state.todos = todos;
+}
+
+async function registerMember(profile){
+  const existing = state.members.find(m => m.name.toLowerCase() === profile.name.toLowerCase());
+  let members = state.members.slice();
+  if(existing){
+    existing.color = profile.color;
+  } else {
+    members.push({name: profile.name, color: profile.color});
+  }
+  state.members = members;
+  await setShared('team:members', members);
+}
+
+async function saveMeetings(){ await setShared('team:meetings', state.meetings); }
+async function saveTodos(){ await setShared('team:todos', state.todos); }
+
+function markEdited(obj){
+  obj.lastEditedBy = state.profile.name;
+  obj.lastEditedAt = nowLabel();
+  state.flashIds.add(obj.id);
+  setTimeout(()=>{ state.flashIds.delete(obj.id); }, 1);
+}
+
+// ---------- init ----------
+async function init(){
+  render();
+  state.profile = await getPersonal('profile', null);
+  await loadShared();
+  state.loading = false;
+  if(state.profile){
+    await registerMember(state.profile);
+  }
+  if(state.meetings.length && !state.selectedMeetingId){
+    state.selectedMeetingId = state.meetings.slice().sort((a,b)=> b.date.localeCompare(a.date))[0].id;
+  }
+  render();
+  setInterval(async ()=>{
+    const mine = state.profile ? state.profile.name : null;
+    await loadShared();
+    render();
+  }, 6000);
+}
+
+// ---------- actions ----------
+async function completeSetup(){
+  const name = state.setupDraft.name.trim();
+  if(!name) return;
+  state.profile = {name, color: state.setupDraft.color};
+  await setPersonal('profile', state.profile);
+  await registerMember(state.profile);
+  render();
+}
+
+async function createMeeting(){
+  const m = {
+    id: uid(),
+    title: 'New meeting',
+    date: new Date().toISOString().slice(0,10),
+    attendees: [state.profile.name],
+    agenda: [],
+  };
+  state.meetings.push(m);
+  state.selectedMeetingId = m.id;
+  state.tab = 'meetings';
+  await saveMeetings();
+  render();
+}
+
+async function addAgendaItem(meeting){
+  const item = {id: uid(), topic:'', owner: state.profile.name, notes:'', actionItems:[], lastEditedBy: state.profile.name, lastEditedAt: nowLabel()};
+  meeting.agenda.push(item);
+  await saveMeetings();
+  render();
+}
+
+async function addActionItem(meeting, item){
+  item.actionItems.push({id: uid(), text:'', assignee: state.profile.name, done:false});
+  markEdited(item);
+  await saveMeetings();
+  render();
+}
+
+async function createTodo(title, assignee, due){
+  const t = {id: uid(), title, assignee: assignee || state.profile.name, due: due || '', done:false, lastEditedBy: state.profile.name, lastEditedAt: nowLabel()};
+  state.todos.unshift(t);
+  await saveTodos();
+  render();
+}
+
+// ---------- render helpers ----------
+function dot(color, size){
+  return `<span class="dot" style="width:${size||14}px;height:${size||14}px;border-radius:50%;background:${color};flex:none;"></span>`;
+}
+function avatar(name, color){
+  return `<span class="thub-avatar" style="background:${color}" title="${name}">${initials(name)}</span>`;
+}
+function editedByTag(obj){
+  if(!obj.lastEditedBy) return '';
+  const c = colorFor(obj.lastEditedBy);
+  return `<div class="thub-editedby" style="color:${c}">${dot(c,9)} Edited by ${obj.lastEditedBy} · ${obj.lastEditedAt}</div>`;
+}
+function cardStyle(obj){
+  const c = colorFor(obj.lastEditedBy) || 'var(--line)';
+  const flash = state.flashIds.has(obj.id) ? 'flash' : '';
+  return `class="thub-card ${flash}" style="border-left-color:${c};--flash-color:${c}33"`;
+}
+
+function renderSetupModal(){
+  const d = state.setupDraft;
+  return `
+  <div class="thub-modal-bg">
+    <div class="thub-modal">
+      <h2 class="thub-h2">Welcome to the team hub</h2>
+      <p>Enter your name and pick a color. Your color marks what you create and edit, so the team can see who did what.</p>
+      <input id="thub-name-input" type="text" placeholder="Your name" value="${d.name}" maxlength="30" />
+      <div class="thub-swatches">
+        ${COLORS.map(c => `<div class="thub-swatch ${d.color===c.hex?'selected':''}" style="background:${c.hex}" data-color="${c.hex}" title="${c.name}"></div>`).join('')}
+      </div>
+      <button class="thub-primary" id="thub-setup-btn" ${d.name.trim() ? '' : 'disabled'}>Join the team</button>
+    </div>
+  </div>`;
+}
+
+function renderRail(){
+  const meetingsSorted = state.meetings.slice().sort((a,b)=> b.date.localeCompare(a.date));
+  return `
+  <div class="thub-rail">
+    <div class="thub-brand"><span class="mark"></span><h1 class="thub-h1">Distruct Solution</h1></div>
+
+    <div class="thub-presence">
+      <div class="thub-presence-label">Team</div>
+      <div class="thub-avatars">
+        ${state.members.map(m => avatar(m.name, m.color)).join('') || '<span style="color:#8791A3;font:400 12px Inter">No one yet</span>'}
+      </div>
+    </div>
+
+    <div class="thub-tabs">
+      <button class="thub-tab ${state.tab==='meetings'?'active':''}" data-tab="meetings">Meetings</button>
+      <button class="thub-tab ${state.tab==='todos'?'active':''}" data-tab="todos">To-Dos</button>
+    </div>
+
+    ${state.tab==='meetings' ? `
+      <button class="thub-new-btn" id="thub-new-meeting">+ New meeting</button>
+      <div class="thub-rail-section-label">Agenda &amp; notes</div>
+      <div class="thub-list">
+        ${meetingsSorted.map(m => `
+          <div class="thub-list-item ${m.id===state.selectedMeetingId?'active':''}" data-meeting="${m.id}">
+            <div class="t">${m.title || 'Untitled meeting'}</div>
+            <div class="d">${m.date}</div>
+          </div>`).join('') || '<div style="color:#8791A3;font:400 12px Inter;padding:8px 10px;">No meetings yet</div>'}
+      </div>
+    ` : `
+      <div class="thub-rail-section-label">Shared list</div>
+      <div style="color:#A9B2C3;font:400 12px Inter;line-height:1.5;padding:0 2px;">
+        Every task syncs live to the whole team. Add one from the panel on the right.
+      </div>
+    `}
+
+    ${state.profile ? `
+      <div class="thub-me" id="thub-me-edit">
+        <span class="dot" style="background:${state.profile.color}"></span>
+        <span>${state.profile.name} (you)</span>
+      </div>
+    ` : ''}
+  </div>`;
+}
+
+function renderMeetingPanel(){
+  const m = state.meetings.find(x => x.id === state.selectedMeetingId);
+  if(!m){
+    return `<div class="thub-empty">
+      <div class="thub-h2">No meeting selected</div>
+      <div>Create a meeting to start an agenda.</div>
+    </div>`;
+  }
+  return `
+    <div class="thub-mtitle-row">
+      <div style="flex:1">
+        <input class="thub-card-title thub-mtitle" style="font-family:Fraunces,serif;font-weight:600;" id="thub-meeting-title" value="${m.title.replace(/"/g,'&quot;')}" placeholder="Meeting title" />
+        <div class="thub-meta">
+          <input type="date" id="thub-meeting-date" value="${m.date}" style="font:500 12px 'JetBrains Mono';border:none;background:transparent;color:var(--muted);" />
+        </div>
+        <div class="thub-attendees">
+          ${m.attendees.map(a => `<span class="thub-chip">${dot(colorFor(a),16)} ${a}</span>`).join('')}
+          <select id="thub-add-attendee" style="border:1px dashed var(--line);border-radius:20px;padding:4px 10px;font:500 12px Inter;color:var(--muted);background:var(--surface);">
+            <option value="">+ Add attendee</option>
+            ${state.members.filter(mm=>!m.attendees.includes(mm.name)).map(mm=>`<option value="${mm.name}">${mm.name}</option>`).join('')}
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="thub-section-title">Agenda</div>
+    ${m.agenda.map(item => `
+      <div ${cardStyle(item)} data-agenda="${item.id}">
+        <div class="thub-card-top">
+          <input class="thub-card-title" data-field="topic" value="${(item.topic||'').replace(/"/g,'&quot;')}" placeholder="Agenda topic" />
+          <select class="thub-owner-select" data-field="owner">
+            ${state.members.map(mm => `<option value="${mm.name}" ${mm.name===item.owner?'selected':''}>${mm.name}</option>`).join('')}
+          </select>
+          <button class="thub-remove" data-remove-agenda="${item.id}">×</button>
+        </div>
+        <textarea class="thub-notes" data-field="notes" placeholder="Notes from the discussion...">${item.notes||''}</textarea>
+        ${editedByTag(item)}
+        <div class="thub-actionitems">
+          ${item.actionItems.map(ai => `
+            <div class="thub-ai-row" data-action="${ai.id}">
+              <input type="checkbox" ${ai.done?'checked':''} data-ai-field="done" />
+              <input type="text" class="${ai.done?'done':''}" value="${(ai.text||'').replace(/"/g,'&quot;')}" placeholder="Action item" data-ai-field="text" />
+              <select data-ai-field="assignee">
+                ${state.members.map(mm => `<option value="${mm.name}" ${mm.name===ai.assignee?'selected':''}>${mm.name}</option>`).join('')}
+              </select>
+              <button class="thub-remove" data-remove-action="${ai.id}">×</button>
+            </div>`).join('')}
+          <button class="thub-ai-add" data-add-action="${item.id}">+ Add action item</button>
+        </div>
+      </div>
+    `).join('')}
+    <button class="thub-add-agenda" id="thub-add-agenda" style="margin-top:2px;">+ Add agenda item</button>
+  `;
+}
+
+function renderTodoPanel(){
+  const filters = [
+    {id:'all', label:'All'},
+    {id:'mine', label:'Mine'},
+    {id:'open', label:'Open'},
+    {id:'done', label:'Done'},
+  ];
+  let list = state.todos.slice();
+  if(state.todoFilter==='mine') list = list.filter(t => t.assignee === state.profile.name);
+  if(state.todoFilter==='open') list = list.filter(t => !t.done);
+  if(state.todoFilter==='done') list = list.filter(t => t.done);
+
+  return `
+    <div class="thub-mtitle thub-h2" style="margin-bottom:16px;">Team to-dos</div>
+    <div class="thub-filters">
+      ${filters.map(f => `<button class="thub-filter ${state.todoFilter===f.id?'active':''}" data-filter="${f.id}">${f.label}</button>`).join('')}
+    </div>
+    <form class="thub-todo-form" id="thub-todo-form">
+      <input type="text" id="thub-todo-title" placeholder="Add a task..." required />
+      <select id="thub-todo-assignee">
+        ${state.members.map(mm => `<option value="${mm.name}" ${mm.name===state.profile.name?'selected':''}>${mm.name}</option>`).join('')}
+      </select>
+      <input type="date" id="thub-todo-due" />
+      <button type="submit">Add</button>
+    </form>
+    <div>
+      ${list.length ? list.map(t => `
+        <div class="thub-todo-row" data-todo="${t.id}" style="border-left-color:${colorFor(t.lastEditedBy)}">
+          <input type="checkbox" ${t.done?'checked':''} data-todo-field="done" />
+          <div class="thub-todo-title ${t.done?'done':''}">${t.title}</div>
+          <div class="thub-todo-sub">
+            <div class="thub-todo-assignee">${dot(colorFor(t.assignee),8)} ${t.assignee}</div>
+            ${t.due ? `<div class="thub-todo-due">Due ${t.due}</div>` : ''}
+          </div>
+          <button class="thub-remove" data-remove-todo="${t.id}">×</button>
+        </div>
+      `).join('') : `<div class="thub-empty" style="min-height:160px;"><div>Nothing here. Add a task above.</div></div>`}
+    </div>
+  `;
+}
+
+function render(){
+  if(state.loading){
+    root.innerHTML = `<div class="thub-root"><div class="thub-loading">Loading team hub...</div></div>`;
+    return;
+  }
+  const needsSetup = !state.profile;
+  root.innerHTML = `
+    <div class="thub-root" style="position:relative;">
+      ${renderRail()}
+      <div class="thub-main">
+        ${state.tab==='meetings' ? renderMeetingPanel() : renderTodoPanel()}
+      </div>
+      ${needsSetup ? renderSetupModal() : ''}
+    </div>
+  `;
+  attachEvents();
+}
+
+// ---------- events ----------
+function attachEvents(){
+  // setup modal
+  const nameInput = document.getElementById('thub-name-input');
+  if(nameInput){
+    nameInput.addEventListener('input', e => { state.setupDraft.name = e.target.value; render(); });
+    nameInput.focus();
+    nameInput.setSelectionRange(nameInput.value.length, nameInput.value.length);
+  }
+  document.querySelectorAll('.thub-swatch').forEach(sw => {
+    sw.addEventListener('click', () => { state.setupDraft.color = sw.dataset.color; render(); });
+  });
+  const setupBtn = document.getElementById('thub-setup-btn');
+  if(setupBtn) setupBtn.addEventListener('click', completeSetup);
+
+  if(!state.profile) return; // nothing else interactive until setup done
+
+  // rail
+  document.querySelectorAll('.thub-tab').forEach(b => b.addEventListener('click', ()=>{ state.tab = b.dataset.tab; render(); }));
+  document.querySelectorAll('[data-meeting]').forEach(el => el.addEventListener('click', ()=>{ state.selectedMeetingId = el.dataset.meeting; render(); }));
+  const newMeetingBtn = document.getElementById('thub-new-meeting');
+  if(newMeetingBtn) newMeetingBtn.addEventListener('click', createMeeting);
+  const meEdit = document.getElementById('thub-me-edit');
+  if(meEdit) meEdit.addEventListener('click', ()=>{
+    state.setupDraft = {name: state.profile.name, color: state.profile.color};
+    state.profile = null;
+    render();
+  });
+
+  // meeting panel
+  const meeting = state.meetings.find(x => x.id === state.selectedMeetingId);
+  const titleInput = document.getElementById('thub-meeting-title');
+  if(titleInput) titleInput.addEventListener('change', async e => { meeting.title = e.target.value; await saveMeetings(); render(); });
+  const dateInput = document.getElementById('thub-meeting-date');
+  if(dateInput) dateInput.addEventListener('change', async e => { meeting.date = e.target.value; await saveMeetings(); render(); });
+  const addAttendee = document.getElementById('thub-add-attendee');
+  if(addAttendee) addAttendee.addEventListener('change', async e => {
+    if(e.target.value){ meeting.attendees.push(e.target.value); await saveMeetings(); render(); }
+  });
+  const addAgendaBtn = document.getElementById('thub-add-agenda');
+  if(addAgendaBtn) addAgendaBtn.addEventListener('click', ()=> addAgendaItem(meeting));
+
+  document.querySelectorAll('[data-agenda]').forEach(card => {
+    const id = card.dataset.agenda;
+    const item = meeting.agenda.find(a => a.id === id);
+    card.querySelectorAll('[data-field]').forEach(field => {
+      const ev = field.tagName === 'SELECT' ? 'change' : (field.tagName==='TEXTAREA' ? 'change' : 'change');
+      field.addEventListener(ev, async e => {
+        item[field.dataset.field] = e.target.value;
+        markEdited(item);
+        await saveMeetings();
+        render();
+      });
+    });
+    const removeBtn = card.querySelector(`[data-remove-agenda="${id}"]`);
+    if(removeBtn) removeBtn.addEventListener('click', async ()=>{
+      meeting.agenda = meeting.agenda.filter(a => a.id !== id);
+      await saveMeetings(); render();
+    });
+    const addActionBtn = card.querySelector(`[data-add-action="${id}"]`);
+    if(addActionBtn) addActionBtn.addEventListener('click', ()=> addActionItem(meeting, item));
+
+    card.querySelectorAll('[data-action]').forEach(row => {
+      const aid = row.dataset.action;
+      const ai = item.actionItems.find(x => x.id === aid);
+      row.querySelectorAll('[data-ai-field]').forEach(f => {
+        f.addEventListener('change', async e => {
+          const val = f.dataset.aiField === 'done' ? e.target.checked : e.target.value;
+          ai[f.dataset.aiField] = val;
+          markEdited(item);
+          await saveMeetings(); render();
+        });
+      });
+      const rmAction = row.querySelector(`[data-remove-action="${aid}"]`);
+      if(rmAction) rmAction.addEventListener('click', async ()=>{
+        item.actionItems = item.actionItems.filter(x => x.id !== aid);
+        markEdited(item);
+        await saveMeetings(); render();
+      });
+    });
+  });
+
+  // todo panel
+  document.querySelectorAll('[data-filter]').forEach(b => b.addEventListener('click', ()=>{ state.todoFilter = b.dataset.filter; render(); }));
+  const todoForm = document.getElementById('thub-todo-form');
+  if(todoForm) todoForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    const title = document.getElementById('thub-todo-title').value.trim();
+    const assignee = document.getElementById('thub-todo-assignee').value;
+    const due = document.getElementById('thub-todo-due').value;
+    if(!title) return;
+    await createTodo(title, assignee, due);
+  });
+  document.querySelectorAll('[data-todo]').forEach(row => {
+    const id = row.dataset.todo;
+    const t = state.todos.find(x => x.id === id);
+    const cb = row.querySelector('[data-todo-field="done"]');
+    if(cb) cb.addEventListener('change', async e => {
+      t.done = e.target.checked;
+      markEdited(t);
+      await saveTodos(); render();
+    });
+    const rm = row.querySelector(`[data-remove-todo="${id}"]`);
+    if(rm) rm.addEventListener('click', async ()=>{
+      state.todos = state.todos.filter(x => x.id !== id);
+      await saveTodos(); render();
+    });
+  });
+}
+
+init();
+})();
+</script>
